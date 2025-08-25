@@ -1,3 +1,5 @@
+@@ KPI’s
+
 # Total Revenue:
 
 SELECT SUM(total_price) AS Total_Revenue FROM pizza_sales
@@ -33,3 +35,22 @@ FROM pizza_sales
     
 - **Final `CAST(... AS DECIMAL(10,2))`** → Rounds the final result to **2 decimal places**, e.g., `3.58`.
 //
+
+
+@@ Daily Trend for Total Orders (order days, total orders per day)
+
+SELECT DATENAME(DW, order_date) AS order_day, COUNT(DISTINCT order_id) AS Total_orders
+FROM pizza_sales
+GROUP BY DATENAME(DW, order_date)
+
+
+
+@@ Monthly Trend for Orders
+
+SELECT DATENAME(MONTH, order_date) AS Month_Name, COUNT(DISTINCT order_id) AS Total_orders
+FROM pizza_sales
+GROUP BY DATENAME(MONTH, order_date)
+ORDER BY Total_Orders DESC
+
+@@ % of Sales by Pizza Category
+
