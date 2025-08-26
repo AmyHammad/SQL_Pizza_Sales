@@ -52,7 +52,7 @@ FROM pizza_sales
 GROUP BY DATENAME(MONTH, order_date)
 ORDER BY Total_Orders DESC
 
-@@ % of Sales by Pizza Category: How much each pizza category makes revenue 
+@@ % of Sales by Pizza Category: How much each pizza category makes in revenue 
 
 Percentage of Sales per Category = (Category Sales / Total Sales) * 100 
 
@@ -68,7 +68,7 @@ GROUP BY pizza_category
 
 
 
-% of Sales by Pizza Size:  (pizza_size, total_revenue, PCT)
+@@ % of Sales by Pizza Size:  (pizza_size, total_revenue, PCT)
 
 SELECT pizza_size,
     CAST(SUM(total_price) AS DECIMAL(10,2)) AS Total_revenue,
@@ -79,18 +79,48 @@ GROUP BY pizza_size
 ORDER BY PCT DESC
 
 
+@@ Total Pizza Sold by Pizza Category (total qty sold per category)
+
+SELECT pizza_category,
+    SUM(quantity) AS Total_Quantity_Sold 
+FROM pizza_sales
+WHERE MONTH(order_date) = 2
+GROUP BY pizza_category
+ORDER BY Total_Quantity_Sold DESC
+
+
+@@  Top 5 Pizzas by Revenue (pizza_name, total_revenue for each name)
+
+
+SELECT TOP 5 pizza_name, SUM(total_price) AS Total_Revenue 
+FROM pizza_sales
+GROUP BY pizza_name
+ORDER BY Total_Revenue DESC
+
+
+@@ Bottom 5 Pizzas by Revenue
+
+SELECT TOP 5 pizza_name, SUM(total_price) AS Total_Revenue 
+FROM pizza_sales
+GROUP BY pizza_name
+ORDER BY Total_Revenue ASC
 
 
 
+@@ Top 5 Pizzas by Quantity (TOP PIZZA SOLD)
+
+SELECT Top 5 pizza_name, SUM(quantity) AS Total_Pizza_Sold
+FROM pizza_sales
+GROUP BY pizza_name
+ORDER BY Total_Pizza_Sold DESC
 
 
+@@ Top 5 Pizzas by Total Orders
 
-
-
-
-
-
-
+SELECT Top 5 pizza_name, COUNT(DISTINCT order_id) AS Total_Orders
+FROM pizza_sales
+GROUP BY pizza_name
+ORDER BY Total_Orders DESC
 
 
 
