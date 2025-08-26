@@ -52,5 +52,47 @@ FROM pizza_sales
 GROUP BY DATENAME(MONTH, order_date)
 ORDER BY Total_Orders DESC
 
-@@ % of Sales by Pizza Category
+@@ % of Sales by Pizza Category: How much each pizza category makes revenue 
+
+Percentage of Sales per Category = (Category Sales / Total Sales) * 100 
+
+- SUM(Total_Sales) FROM pizza_sales  (over all sales)
+
+
+SELECT pizza_catergory, 
+       CAST(SUM(total_price) AS DECIMAL(10, 2)) AS Total_Revenue,
+       CAST(SUM(total_price) * 100 / (SELECT SUM(total_price) FROM pizza_sales) 
+       AS DECIMAL(10, 2)) AS PCT
+FROM pizza_sales
+GROUP BY pizza_category
+
+
+
+% of Sales by Pizza Size:  (pizza_size, total_revenue, PCT)
+
+SELECT pizza_size,
+    CAST(SUM(total_price) AS DECIMAL(10,2)) AS Total_revenue,
+    CAST(SUM(total_price) * 100 / (SELECT SUM(total_price) FROM pizza_sales)
+    AS DECIMAL (10,2)) AS PCT
+FROM pizza_sales
+GROUP BY pizza_size
+ORDER BY PCT DESC
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
